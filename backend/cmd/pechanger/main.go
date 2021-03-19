@@ -7,7 +7,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/the-NZA/pechanger/backend/internal/app/pechanger"
+	"github.com/the-NZA/pechanger_project/backend/internal/app/pechanger"
 )
 
 var (
