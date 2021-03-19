@@ -1,9 +1,0 @@
-{
-	"bind_addr": ":9090",
-	"db_url": "",
-	"log_debug": true,
-	"email_from": "tester@the-nza.ru",
-	"email_smtp": "smtp.yandex.ru",
-	"email_port": "587",
-	"email_pass": "fabwznlojcjyfldy"
-}
