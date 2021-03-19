@@ -1,0 +1,9 @@
+{
+	"bind_addr": ":9090",
+	"db_url": "",
+	"log_debug": true,
+	"email_from": "example@some.com",
+	"email_smtp": "smtp.example.com",
+	"email_port": "888",
+	"email_pass": "some_secret_password"
+}
