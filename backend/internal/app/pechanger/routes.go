@@ -61,19 +61,20 @@ func (s *Server) handleGetExchange() http.HandlerFunc {
 	}
 
 	return func(w http.ResponseWriter, r *http.Request) {
-		amountStr := r.URL.Query()["amount"][0]
+		amountStr := r.URL.Query().Get("amount")
+
 		if amountStr == "" {
 			s.error(w, r, http.StatusBadRequest, errBadQueryRequest)
 			return
 		}
 
-		from := r.URL.Query()["from"][0]
+		from := r.URL.Query().Get("from")
 		if from == "" {
 			s.error(w, r, http.StatusBadRequest, errBadQueryRequest)
 			return
 		}
 
-		to := r.URL.Query()["to"][0]
+		to := r.URL.Query().Get("to")
 		if to == "" {
 			s.error(w, r, http.StatusBadRequest, errBadQueryRequest)
 			return
@@ -111,26 +112,26 @@ func (s *Server) handleGetExchangeAt() http.HandlerFunc {
 	}
 
 	return func(w http.ResponseWriter, r *http.Request) {
-		amountStr := r.URL.Query()["amount"][0]
+		amountStr := r.URL.Query().Get("amount")
 		if amountStr == "" {
 			s.error(w, r, http.StatusBadRequest, errBadQueryRequest)
 			return
 		}
 
-		from := r.URL.Query()["from"][0]
+		from := r.URL.Query().Get("from")
 		if from == "" {
 			s.error(w, r, http.StatusBadRequest, errBadQueryRequest)
 			return
 		}
 
-		to := r.URL.Query()["to"][0]
+		to := r.URL.Query().Get("to")
 		if to == "" {
 			s.error(w, r, http.StatusBadRequest, errBadQueryRequest)
 			return
 		}
 
 		// date must be in the format YYYY-MM-DD
-		date := r.URL.Query()["date"][0]
+		date := r.URL.Query().Get("date")
 		if date == "" {
 			s.error(w, r, http.StatusBadRequest, errBadQueryRequest)
 			return
@@ -180,27 +181,27 @@ func (s *Server) handleGetExchangeBetween() http.HandlerFunc {
 	}
 
 	return func(w http.ResponseWriter, r *http.Request) {
-		from := r.URL.Query()["from"][0]
+		from := r.URL.Query().Get("from")
 		if from == "" {
 			s.error(w, r, http.StatusBadRequest, errBadQueryRequest)
 			return
 		}
 
-		to := r.URL.Query()["to"][0]
+		to := r.URL.Query().Get("to")
 		if to == "" {
 			s.error(w, r, http.StatusBadRequest, errBadQueryRequest)
 			return
 		}
 
 		// Start Date
-		startDate := r.URL.Query()["start_date"][0]
+		startDate := r.URL.Query().Get("start_date")
 		if startDate == "" {
 			s.error(w, r, http.StatusBadRequest, errBadQueryRequest)
 			return
 		}
 
 		// End Date
-		endDate := r.URL.Query()["end_date"][0]
+		endDate := r.URL.Query().Get("end_date")
 		if endDate == "" {
 			s.error(w, r, http.StatusBadRequest, errBadQueryRequest)
 			return
