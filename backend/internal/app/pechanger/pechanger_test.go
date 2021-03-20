@@ -2,6 +2,7 @@ package pechanger
 
 import (
 	"fmt"
+	"math/big"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -15,7 +16,7 @@ var (
 	testFrom    = "USD"
 	testTo      = "RUB"
 	testDate    = "2018-11-05"
-	testDateEnd = "2018-12-05"
+	testDateEnd = "2018-11-15"
 )
 
 func TestHandleGetExchange(t *testing.T) {
@@ -143,6 +144,50 @@ func TestHandleGetExchangeAt(t *testing.T) {
 		})
 	}
 
+}
+
+func TestGetCurrenciesRange(t *testing.T) {
+	testCases := []struct {
+		name      string
+		want      []*big.Float
+		from      string
+		to        string
+		startDate string
+		endDate   string
+	}{
+		{
+			name:      "All specified",
+			want:      []*big.Float{},
+			from:      testFrom,
+			to:        testTo,
+			startDate: testDate,
+			endDate:   testDateEnd,
+		},
+		{
+			name:      "All specified wrong",
+			want:      nil,
+			from:      "XYZ",
+			to:        "WYL",
+			startDate: testDateEnd,
+			endDate:   testDate,
+		},
+		{
+			name:      "End date less than start date",
+			want:      nil,
+			from:      testFrom,
+			to:        testTo,
+			startDate: testDateEnd,
+			endDate:   testDate,
+		},
+	}
+
+	for _, testCase := range testCases {
+		t.Run(testCase.name, func(t *testing.T) {
+			sl, _ := getCurrenciesRange(testCase.from, testCase.to, testCase.startDate, testCase.endDate)
+			assert.IsType(t, testCase.want, sl)
+
+		})
+	}
 }
 
 func TestHandleGetExchangeBetween(t *testing.T) {
