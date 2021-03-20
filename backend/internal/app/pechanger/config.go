@@ -19,10 +19,10 @@ func NewConfig() *Config {
 		BindAddr:    ":9999",
 		DatabaseURL: "NOT IMPLEMENTED YET",
 		LogDebug:    false,
-		EmailFrom:   "",
-		EmailSMTP:   "",
-		EmailPort:   "",
-		EmailPass:   "",
+		EmailFrom:   "test@test.com",
+		EmailSMTP:   "smtp.test.com",
+		EmailPort:   "587",
+		EmailPass:   "test-password",
 	}
 }
 

@@ -13,6 +13,10 @@ run_backend:
 buildnrace_backend:
 	go build $(FLGS) -race ./backend/cmd/$(APP)
 
+.PHONY: test_backend
+test_backend:
+	go test ./...
+
 .PHONY: run_frontend
 run_frontend:
 	cd frontend && npm run serve
