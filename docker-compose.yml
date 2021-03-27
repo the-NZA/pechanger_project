@@ -1,0 +1,34 @@
+services:
+        nginx:
+                image: umputun/nginx-le:latest
+                hostname: pech_nginx
+                restart: always
+                container_name: pech_nginx
+
+                logging:
+                        driver: json-file
+                options:
+                        max-size: "10m"
+                        max-file: "5"
+
+                volumes:
+                    - ./etc/ssl:/etc/nginx/ssl
+                    - ./etc/pechanger.conf:/etc/nginx/service.conf
+                ports:
+                    - "80:80"
+                    - "443:443"
+
+                environment:
+                    - TZ=Europe/Moscow
+                    - LETSENCRYPT=true
+                    - LE_EMAIL=the-nza@the-nza.ru
+                    - LE_FQDN=pechanger.ru
+        app:
+                # image: golang
+                restart: always
+                hostname: pech_app
+                container_name: pech_app
+
+                volumes:
+                    - ./etc/pechanger_config_prod.json:/app/backend/config/pechanger_config.json
+

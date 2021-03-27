@@ -3,6 +3,9 @@ node_modules
 /dist
 /pechanger
 pechanger_config.json
+pechanger_config_prod.json
+
+etc/
 
 
 # local env files
