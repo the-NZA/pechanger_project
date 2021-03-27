@@ -15,8 +15,11 @@ func getCurrenciesRange(fromCur, toCur, startDate, endDate string) ([]*big.Float
 		return nil, errors.New("Can't create exchange object")
 	}
 
+	ex.CacheEnabled = false
+
 	// convert from startDate to end_end for 2 currencies (from and to)
-	res, err := ex.TimeseriesMultiple(startDate, endDate, []string{toCur})
+	// res, err := ex.TimeseriesMultiple(startDate, endDate, []string{toCur})
+	res, err := ex.TimeseriesSingle(startDate, endDate, toCur)
 	if err != nil {
 		return nil, err
 	}
