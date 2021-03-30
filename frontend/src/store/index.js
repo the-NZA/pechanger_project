@@ -10,7 +10,9 @@ function getNormalizedDayAndMonth(day, month) {
 		month = `0${month}`
 	}
 
-	return { day, month }
+	return {
+		day, month
+	}
 }
 
 function getDayAndMonth(date) {
@@ -18,7 +20,9 @@ function getDayAndMonth(date) {
 	const day = date.getDate();
 	const norm = getNormalizedDayAndMonth(day, month);
 
-	return { ...norm }
+	return {
+		...norm
+	}
 }
 
 export default createStore({
@@ -28,7 +32,7 @@ export default createStore({
 		amountFrom: 0,
 		amountTo: 0,
 		// currencies: ["RUB", "USD", "EUR", "GBP"],
-		currencies: ["RUB", "USD", "EUR", "BYR", "JPY", "CNY", "CAD", "TMТ", "UAH", "GBP"],
+		currencies: ["RUB", "USD", "EUR", "BYR", "JPY", "CNY", "CAD", "TMT", "UAH", "GBP"],
 		oneAmountFromInTo: 0,
 		oneAmountToInFrom: 0,
 		selectedDate: null,
@@ -46,7 +50,8 @@ export default createStore({
 		SwapItems: state => {
 			[state.curTo, state.curFrom] = [state.curFrom, state.curTo];
 			[state.amountFrom, state.amountTo] = [state.amountTo, state.amountFrom];
-			[state.oneAmountFromInTo, state.oneAmountToInFrom] = [state.oneAmountToInFrom, state.oneAmountFromInTo];
+			[state.oneAmountFromInTo, state.oneAmountToInFrom] =
+				[state.oneAmountToInFrom, state.oneAmountFromInTo];
 			state.selectedDate = null;
 		}
 	},
@@ -88,7 +93,8 @@ export default createStore({
 			commit("SetSlice", { value: slice, field: "dateSlice" });
 
 			try {
-				const res = await HTTP.get(`/api/exchange_between?from=${state.curTo}&to=${state.curFrom}&start_date=${startDate}&end_date=${endDate}`)
+				const res =
+					await HTTP.get(`/api/exchange_between?from=${state.curTo}&to=${state.curFrom}&start_date=${startDate}&end_date=${endDate}`)
 				commit("SetSlice", { value: res.data.res, field: "rangeSlice" });
 			} catch (e) {
 				console.error(e.response.status, e.response.data);
@@ -122,24 +128,14 @@ export default createStore({
 
 			try {
 				const res = await HTTP.get(
-					`/api/exchange_at?from=${getters.GetField(
-						"curFrom"
-					)}&to=${getters.GetField(
-						"curTo"
-					)}&amount=${getters.GetField(
-						"amountFrom"
-					)}&date=${dt}`
-				);
+					`/api/exchange_at?from=${getters.GetField("curFrom")}&to=${getters.GetField("curTo")}&amount=${getters.GetField("amountFrom")}&date=${dt}`);
 
-				commit("SetField", {
-					field: "currencyAtDate",
-					value: JSON.parse(res.data.res)
-				})
+				commit("SetField",
+					{ field: "currencyAtDate", value: JSON.parse(res.data.res) })
 			} catch (e) {
 				console.log(e.response.status, e.response.data);
 			}
 		}
 	},
-	modules: {
-	}
+	modules: {}
 })
